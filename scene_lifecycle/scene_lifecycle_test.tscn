@@ -28,7 +28,7 @@ text = "场景生命周期"
 [node name="Description" type="Label" parent="Layout"]
 layout_mode = 2
 modulate = Color(0.666667, 0.717647, 0.792157, 1)
-text = "观察 enter_tree、ready、process、queue_free 和 exit_tree 的发生顺序。"
+text = "观察通知、tree 信号、enter_tree、ready、process、queue_free 和 exit_tree 的发生顺序。"
 
 [node name="Toolbar" type="HBoxContainer" parent="Layout"]
 layout_mode = 2

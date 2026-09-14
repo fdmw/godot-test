@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://rendering/rendering_test.gd" id="1"]
 [ext_resource type="Texture2D" path="res://icon.svg" id="2"]
+[ext_resource type="Script" path="res://rendering/draw_canvas.gd" id="3_draw"]
 
 [sub_resource type="Gradient" id="Gradient_light"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -67,6 +68,33 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "启用 ShaderMaterial"
 
+[node name="CustomDrawToggle" type="CheckBox" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "启用自定义绘制"
+
+[node name="RedrawButton" type="Button" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "queue_redraw()"
+
+[node name="RegionToggle" type="CheckBox" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "启用 Sprite2D 区域"
+
+[node name="FilterSelector" type="OptionButton" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ZRelative" type="CheckBox" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "z_as_relative"
+
 [node name="ZSlider" type="HSlider" parent="Layout/Controls"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -97,6 +125,16 @@ points = PackedVector2Array(80, 100, 220, 180, 360, 80, 520, 200)
 width = 8.0
 default_color = Color(0.898039, 0.713725, 0.360784, 1)
 
+[node name="DrawCanvas" type="Node2D" parent="Layout/Preview"]
+unique_name_in_owner = true
+script = ExtResource("3_draw")
+line_points = PackedVector2Array(70, 110, 160, 60, 250, 140, 330, 75)
+polygon_points = PackedVector2Array(85, 270, 165, 220, 255, 285, 150, 340)
+circle_center = Vector2(440, 175)
+circle_radius = 34.0
+draw_color = Color(0.313725, 0.835294, 0.678431, 1)
+line_width = 4.0
+
 [node name="Polygon" type="Polygon2D" parent="Layout/Preview"]
 polygon = PackedVector2Array(120, 250, 220, 220, 290, 300, 160, 350)
 color = Color(0.72549, 0.360784, 0.403922, 1)
@@ -106,6 +144,9 @@ unique_name_in_owner = true
 position = Vector2(370, 210)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 128)
+texture_filter = 1
 
 [node name="Occluder" type="LightOccluder2D" parent="Layout/Preview"]
 position = Vector2(370, 280)

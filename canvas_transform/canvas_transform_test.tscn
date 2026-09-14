@@ -1,0 +1,124 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://canvas_transform/canvas_transform_test.gd" id="1_script"]
+
+[node name="CanvasTransformTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Layout" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="Controls" type="VBoxContainer" parent="Layout"]
+custom_minimum_size = Vector2(245, 0)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Layout/Controls"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Canvas 坐标"
+
+[node name="Description" type="Label" parent="Layout/Controls"]
+layout_mode = 2
+modulate = Color(0.666667, 0.717647, 0.792157, 1)
+text = "验证 CanvasLayer、CanvasGroup 和 Node2D 坐标转换。"
+autowrap_mode = 3
+
+[node name="MoveButton" type="Button" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "移动世界标记"
+
+[node name="ConvertButton" type="Button" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "重新转换坐标"
+
+[node name="ToggleGroupButton" type="Button" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "隐藏 CanvasGroup"
+
+[node name="ResetButton" type="Button" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "重置"
+
+[node name="Status" type="Label" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.498039, 0.858824, 0.670588, 1)
+autowrap_mode = 3
+
+[node name="WorldPosition" type="Label" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="GlobalPosition" type="Label" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CanvasPosition" type="Label" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Preview" type="ColorRect" parent="Layout"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+clip_contents = true
+color = Color(0.0901961, 0.129412, 0.192157, 1)
+
+[node name="World" type="Node2D" parent="Layout/Preview"]
+unique_name_in_owner = true
+position = Vector2(35, 20)
+
+[node name="AxisX" type="Line2D" parent="Layout/Preview/World"]
+width = 2.0
+default_color = Color(0.776471, 0.407843, 0.407843, 0.8)
+points = PackedVector2Array(0, 120, 480, 120)
+
+[node name="AxisY" type="Line2D" parent="Layout/Preview/World"]
+width = 2.0
+default_color = Color(0.407843, 0.776471, 0.509804, 0.8)
+points = PackedVector2Array(190, 0, 190, 300)
+
+[node name="CanvasGroup" type="CanvasGroup" parent="Layout/Preview/World"]
+unique_name_in_owner = true
+
+[node name="GroupVisual" type="Polygon2D" parent="Layout/Preview/World/CanvasGroup"]
+polygon = PackedVector2Array(0, -24, 21, -12, 21, 12, 0, 24, -21, 12, -21, -12)
+position = Vector2(190, 120)
+color = Color(0.313725, 0.690196, 0.909804, 0.85)
+
+[node name="WorldMarker" type="Marker2D" parent="Layout/Preview/World"]
+unique_name_in_owner = true
+position = Vector2(190, 120)
+
+[node name="MarkerVisual" type="Polygon2D" parent="Layout/Preview/World/WorldMarker"]
+polygon = PackedVector2Array(0, -14, 12, 10, -12, 10)
+color = Color(0.996078, 0.784314, 0.321569, 1)
+
+[node name="OverlayLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+layer = 2
+
+[node name="LayerBadge" type="Label" parent="OverlayLayer"]
+offset_left = 575.0
+offset_top = 12.0
+offset_right = 750.0
+offset_bottom = 42.0
+modulate = Color(0.498039, 0.858824, 0.670588, 1)
+text = "CanvasLayer 2"

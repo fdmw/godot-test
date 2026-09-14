@@ -1,0 +1,8 @@
+[gd_resource type="Translation" format=3]
+
+[resource]
+locale = "en"
+messages = {
+"demo_greeting": "Hello, %s!",
+"demo_message": "The current text comes from the English Translation resource."
+}

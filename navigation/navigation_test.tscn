@@ -37,7 +37,7 @@ text = "导航"
 [node name="Description" type="Label" parent="Layout/Controls"]
 layout_mode = 2
 modulate = Color(0.666667, 0.717647, 0.792157, 1)
-text = "NavigationRegion2D、NavigationAgent2D、NavigationObstacle2D"
+text = "NavigationRegion2D、NavigationAgent2D、NavigationLink2D、NavigationObstacle2D"
 autowrap_mode = 3
 
 [node name="TargetOne" type="Button" parent="Layout/Controls"]
@@ -59,6 +59,17 @@ text = "目标 340, 100"
 unique_name_in_owner = true
 layout_mode = 2
 text = "重置代理"
+
+[node name="LinkToggle" type="CheckBox" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "启用 NavigationLink2D"
+
+[node name="LayerToggle" type="CheckBox" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "代理使用第 2 层"
 
 [node name="Status" type="Label" parent="Layout/Controls"]
 unique_name_in_owner = true
@@ -89,6 +100,19 @@ position = Vector2(340, 190)
 polygon = PackedVector2Array(48, 0, 41.569, 24, 24, 41.569, 0, 48, -24, 41.569, -41.569, 24, -48, 0, -41.569, -24, -24, -41.569, 0, -48, 24, -41.569, 41.569, -24)
 color = Color(0.72549, 0.360784, 0.403922, 1)
 
+[node name="Link" type="NavigationLink2D" parent="Layout/Preview"]
+unique_name_in_owner = true
+enabled = true
+bidirectional = true
+start_position = Vector2(220, 190)
+end_position = Vector2(460, 190)
+navigation_layers = 1
+
+[node name="LinkVisual" type="Line2D" parent="Layout/Preview"]
+points = PackedVector2Array(220, 190, 460, 190)
+width = 6.0
+default_color = Color(0.996078, 0.784314, 0.321569, 0.65)
+
 [node name="Actor" type="Polygon2D" parent="Layout/Preview"]
 unique_name_in_owner = true
 position = Vector2(90, 100)
@@ -100,7 +124,20 @@ unique_name_in_owner = true
 path_desired_distance = 6.0
 target_desired_distance = 8.0
 avoidance_enabled = true
+navigation_layers = 1
 
 [node name="Target" type="Marker2D" parent="Layout/Preview"]
 unique_name_in_owner = true
 position = Vector2(580, 300)
+
+[node name="TargetOneMarker" type="Marker2D" parent="Layout/Preview"]
+unique_name_in_owner = true
+position = Vector2(580, 300)
+
+[node name="TargetTwoMarker" type="Marker2D" parent="Layout/Preview"]
+unique_name_in_owner = true
+position = Vector2(100, 300)
+
+[node name="TargetThreeMarker" type="Marker2D" parent="Layout/Preview"]
+unique_name_in_owner = true
+position = Vector2(340, 100)

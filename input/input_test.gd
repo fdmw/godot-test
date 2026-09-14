@@ -6,11 +6,13 @@ const RIGHT_ACTION := "validation_move_right"
 @onready var _status: Label = %Status
 @onready var _focus_status: Label = %FocusStatus
 @onready var _mouse_panel: ColorRect = %MousePanel
+@onready var _touch_panel: ColorRect = %TouchPanel
 @onready var _field: LineEdit = %Field
 @onready var _first: Button = %FirstButton
 @onready var _second: Button = %SecondButton
 @onready var _checkbox: CheckBox = %Checkbox
 var _created_actions: Array[StringName] = []
+var _active_touches: Dictionary = {}
 
 func _ready() -> void:
 	_register_actions()
@@ -45,7 +47,16 @@ func _register_actions() -> void:
 		InputMap.action_add_event(RIGHT_ACTION, right_event)
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo:
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			_active_touches[event.index] = event.position
+		else:
+			_active_touches.erase(event.index)
+		_status.text = "触摸点 %d 个，最近点：%s" % [_active_touches.size(), event.position]
+	elif event is InputEventScreenDrag:
+		_active_touches[event.index] = event.position
+		_status.text = "多点拖动：%d 个，当前点：%s" % [_active_touches.size(), event.position]
+	elif event is InputEventKey and event.pressed and not event.echo:
 		_status.text = "_input 收到：" + OS.get_keycode_string(event.keycode)
 
 func _unhandled_input(event: InputEvent) -> void:

@@ -1,0 +1,97 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://animation_tree/animation_tree_test.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://icon.svg" id="2_icon"]
+
+[sub_resource type="Animation" id="Animation_idle"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {"times": PackedFloat32Array(0, 2), "transitions": PackedFloat32Array(1, 1), "update": 0, "values": [-0.08, 0.08]}
+
+[sub_resource type="Animation" id="Animation_move"]
+resource_name = "move"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.75, 1.5), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Vector2(180, 150), Vector2(400, 230), Vector2(180, 150)]}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_main"]
+_data = {&"idle": SubResource("Animation_idle"), &"move": SubResource("Animation_move")}
+
+[node name="AnimationTreeTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="Toolbar" type="HBoxContainer" parent="Layout"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="IdleButton" type="Button" parent="Layout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Idle"
+
+[node name="MoveButton" type="Button" parent="Layout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Move"
+
+[node name="ResetButton" type="Button" parent="Layout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "重置"
+
+[node name="Status" type="Label" parent="Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.498039, 0.858824, 0.670588, 1)
+
+[node name="Preview" type="ColorRect" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(0.0901961, 0.129412, 0.192157, 1)
+
+[node name="Sprite" type="Sprite2D" parent="Layout/Preview"]
+unique_name_in_owner = true
+position = Vector2(180, 150)
+texture = ExtResource("2_icon")
+scale = Vector2(0.55, 0.55)
+
+[node name="Player" type="AnimationPlayer" parent="Layout/Preview"]
+libraries = {&"": SubResource("AnimationLibrary_main")}
+
+[node name="AnimationTree" type="AnimationTree" parent="Layout/Preview"]
+unique_name_in_owner = true
+anim_player = NodePath("../Player")
+active = false
+
+[node name="Hint" type="Label" parent="Layout"]
+layout_mode = 2
+modulate = Color(0.666667, 0.717647, 0.792157, 1)
+text = "状态机图在运行时作为 AnimationTree 验证对象建立；动画资源和节点布局固定在场景中。"

@@ -10,12 +10,28 @@ var _process_count := 0
 
 func _enter_tree() -> void:
 	_events.append("root._enter_tree")
+	var probe := get_node("Probe")
+	if not probe.tree_entered.is_connected(_on_probe_tree_entered):
+		probe.tree_entered.connect(_on_probe_tree_entered)
 
 func _ready() -> void:
 	_events.append("root._ready")
 	_record_button.pressed.connect(_record_again)
 	_free_button.pressed.connect(_free_probe)
+	_probe.tree_exiting.connect(_on_probe_tree_exiting)
+	_probe.tree_exited.connect(_on_probe_tree_exited)
 	_update_view()
+
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_ENTER_TREE:
+			_events.append("root.notification: ENTER_TREE")
+			_update_view_if_ready()
+		NOTIFICATION_READY:
+			_events.append("root.notification: READY")
+			_update_view_if_ready()
+		NOTIFICATION_EXIT_TREE:
+			_events.append("root.notification: EXIT_TREE")
 
 func _process(_delta: float) -> void:
 	_process_count += 1
@@ -34,6 +50,22 @@ func _free_probe() -> void:
 	if is_instance_valid(_probe):
 		_probe.queue_free()
 		_events.append("probe.queue_free")
+		_update_view()
+
+func _on_probe_tree_entered() -> void:
+	_events.append("probe.tree_entered")
+	_update_view_if_ready()
+
+func _on_probe_tree_exiting() -> void:
+	_events.append("probe.tree_exiting")
+	_update_view_if_ready()
+
+func _on_probe_tree_exited() -> void:
+	_events.append("probe.tree_exited")
+	_update_view_if_ready()
+
+func _update_view_if_ready() -> void:
+	if is_node_ready():
 		_update_view()
 
 func _update_view() -> void:

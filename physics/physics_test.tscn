@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://physics/physics_test.gd" id="1"]
 
@@ -16,6 +16,10 @@ size = Vector2(34, 34)
 
 [sub_resource type="CircleShape2D" id="Circle_area"]
 radius = 48.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rigid"]
+friction = 0.2
+bounce = 0.6
 
 [node name="PhysicsTest" type="Control"]
 layout_mode = 3
@@ -67,6 +71,28 @@ layout_mode = 2
 button_pressed = true
 text = "启用 Area2D 监测"
 
+[node name="CastToggle" type="CheckBox" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "启用 RayCast / ShapeCast"
+
+[node name="ContactToggle" type="CheckBox" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "启用刚体接触监测"
+
+[node name="ForceCastButton" type="Button" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "立即刷新投射"
+
+[node name="MaterialInfo" type="Label" parent="Layout/Controls"]
+layout_mode = 2
+modulate = Color(0.666667, 0.717647, 0.792157, 1)
+text = "RigidBody PhysicsMaterial\nfriction 0.20 / bounce 0.60"
+
 [node name="Status" type="Label" parent="Layout/Controls"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -86,6 +112,10 @@ offset_top = 330.0
 offset_right = 660.0
 offset_bottom = 354.0
 color = Color(0.25098, 0.32549, 0.423529, 1)
+
+[node name="RespawnPoint" type="Marker2D" parent="Layout/Preview"]
+unique_name_in_owner = true
+position = Vector2(80, 80)
 
 [node name="Floor" type="StaticBody2D" parent="Layout/Preview"]
 position = Vector2(340, 342)
@@ -127,6 +157,9 @@ collision_mask = 1
 [node name="RigidBody" type="RigidBody2D" parent="Layout/Preview"]
 unique_name_in_owner = true
 position = Vector2(300, 80)
+contact_monitor = true
+max_contacts_reported = 4
+physics_material_override = SubResource("PhysicsMaterial_rigid")
 collision_layer = 1
 collision_mask = 1
 
@@ -136,6 +169,18 @@ shape = SubResource("Rectangle_rigid")
 [node name="Visual" type="Polygon2D" parent="Layout/Preview/RigidBody"]
 polygon = PackedVector2Array(-17, -17, 17, -17, 17, 17, -17, 17)
 color = Color(0.898039, 0.713725, 0.360784, 1)
+
+[node name="PolygonBody" type="StaticBody2D" parent="Layout/Preview"]
+position = Vector2(510, 150)
+collision_layer = 1
+collision_mask = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Layout/Preview/PolygonBody"]
+polygon = PackedVector2Array(-48, 34, 0, -34, 48, 34)
+
+[node name="Visual" type="Polygon2D" parent="Layout/Preview/PolygonBody"]
+polygon = PackedVector2Array(-48, 34, 0, -34, 48, 34)
+color = Color(0.72549, 0.360784, 0.403922, 0.8)
 
 [node name="Area" type="Area2D" parent="Layout/Preview"]
 unique_name_in_owner = true

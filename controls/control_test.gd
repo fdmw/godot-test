@@ -1,5 +1,7 @@
 extends Control
 
+@export var validation_theme: Theme
+
 @onready var _status: Label = %Status
 @onready var _progress: ProgressBar = %Progress
 @onready var _line_edit: LineEdit = %LineEdit
@@ -14,6 +16,7 @@ extends Control
 @onready var _popup_button: Button = %PopupButton
 @onready var _popup_menu: PopupMenu = %PopupMenu
 @onready var _tree: Tree = %Tree
+@onready var _theme_toggle: CheckBox = %ThemeToggle
 
 func _ready() -> void:
 	_line_edit.text_changed.connect(_on_line_edit_changed)
@@ -27,6 +30,7 @@ func _ready() -> void:
 	_item_list.item_selected.connect(_on_item_selected)
 	_popup_button.pressed.connect(_open_popup)
 	_popup_menu.id_pressed.connect(_on_popup_item_pressed)
+	_theme_toggle.toggled.connect(_set_validation_theme)
 
 	_option_button.add_item("OptionButton：选项 A")
 	_option_button.add_item("OptionButton：选项 B")
@@ -75,3 +79,7 @@ func _open_popup() -> void:
 
 func _on_popup_item_pressed(id: int) -> void:
 	_status.text = "PopupMenu 选择了菜单项：%d" % id
+
+func _set_validation_theme(value: bool) -> void:
+	theme = validation_theme if value else null
+	_status.text = "Theme：" + ("启用覆盖样式" if value else "恢复默认样式")

@@ -1,0 +1,8 @@
+[gd_resource type="Translation" format=3]
+
+[resource]
+locale = "zh_CN"
+messages = {
+"demo_greeting": "你好，%s！",
+"demo_message": "当前文本来自中文 Translation 资源。"
+}

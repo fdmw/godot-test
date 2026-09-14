@@ -36,18 +36,33 @@ res://
 ├── path_2d/
 ├── astar/
 ├── parallax/
-└── dialog/
+├── dialog/
+├── drag_drop/
+├── canvas_transform/
+├── resource_loading/
+├── localization/
+├── animation_tree/
+├── pause_process/
+├── groups/
+├── skeleton_2d/
+├── remote_transform_2d/
+└── navigation_query/
 ```
 
 - 根目录的 `test_hub` 只负责选择、加载、重置测试。
 - 每个测试使用一个根目录子目录；该测试的场景、脚本和专属资源必须放在同一目录。
-- `tilemap/` 包含 TileMap 测试及其全部图片资源，不再使用单独的 `layer/` 目录。
+- `tilemap/` 包含 TileMap 测试及其资源，不再使用单独的 `layer/` 目录；基础单元格验证使用场景内生成的 TileSet，不恢复用户删除的图片。
 - `particles/` 包含粒子测试场景和脚本；粒子测试使用目录内场景定义的基础纹理，不增加跨目录资源依赖。
 - `physics/`、`animation/`、`camera/`、`audio/` 分别验证对应核心节点；每个测试目录保持独立。
 - `navigation/`、`viewport/`、`input/`、`rendering/`、`scene_resource/` 同样各自维护独立场景和脚本。
 - `controls/` 可以集中验证相关 UI 控件和布局容器，不为每个控件单独建立测试目录。
+- `controls/` 同时验证 Theme、StyleBox 和控件状态样式，相关 Theme 资源与控件场景放在同一目录。
 - `tween/`、`resource_data/`、`file_config/`、`scene_lifecycle/`、`audio_bus/`、`window_display/`、`visibility/`、`physics_extra/` 分别维护对应的通用或 2D 功能验证。
 - `path_2d/`、`astar/`、`parallax/`、`dialog/` 分别验证 2D 路径、寻路、视差和常用弹窗节点。
+- `drag_drop/`、`canvas_transform/`、`resource_loading/`、`localization/` 分别验证拖放交互、Canvas 坐标、资源加载和多语言。
+- `animation_tree/`、`pause_process/`、`groups/`、`skeleton_2d/`、`remote_transform_2d/`、`navigation_query/` 分别验证动画状态机、暂停进程、节点分组、2D 骨骼、远程变换和 NavigationServer2D 查询。
+- `rendering/` 包含 2D 节点绘制和 `_draw()`/`queue_redraw()` 自定义绘制验证；`scene_lifecycle/` 同时验证节点通知和 `tree_*` 生命周期信号。
+- RayCast2D、ShapeCast2D 已合并在 `physics/` 中验证，不再建立重复目录；Polygon2D、Line2D、PackedScene 和资源缓存相关验证分别归入已有的 `rendering/`、`scene_resource/`、`resource_data/` 或 `resource_loading/`。
 - 不保留临时入口场景或与验证台无关的重复入口。
 
 ## 测试隔离

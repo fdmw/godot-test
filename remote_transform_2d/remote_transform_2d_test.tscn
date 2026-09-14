@@ -1,0 +1,102 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://remote_transform_2d/remote_transform_2d_test.gd" id="1_script"]
+
+[node name="RemoteTransform2DTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Layout" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="Controls" type="VBoxContainer" parent="Layout"]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Layout/Controls"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "RemoteTransform2D"
+
+[node name="Description" type="Label" parent="Layout/Controls"]
+layout_mode = 2
+modulate = Color(0.666667, 0.717647, 0.792157, 1)
+text = "让一个节点的变换同步到另一个节点。"
+autowrap_mode = 3
+
+[node name="MoveButton" type="Button" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "移动 Source"
+
+[node name="PoseButton" type="Button" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "旋转和缩放 Source"
+
+[node name="SyncButton" type="Button" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "关闭同步"
+
+[node name="ResetButton" type="Button" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "重置"
+
+[node name="Status" type="Label" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.498039, 0.858824, 0.670588, 1)
+autowrap_mode = 3
+
+[node name="Preview" type="ColorRect" parent="Layout"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.0901961, 0.129412, 0.192157, 1)
+
+[node name="TargetGuide" type="Line2D" parent="Layout/Preview"]
+width = 2.0
+default_color = Color(0.898039, 0.713725, 0.360784, 0.35)
+points = PackedVector2Array(0, 155, 620, 155)
+
+[node name="Source" type="Node2D" parent="Layout/Preview"]
+unique_name_in_owner = true
+position = Vector2(150, 155)
+
+[node name="Visual" type="Polygon2D" parent="Layout/Preview/Source"]
+polygon = PackedVector2Array(0, -24, 21, -12, 21, 12, 0, 24, -21, 12, -21, -12)
+color = Color(0.384314, 0.690196, 0.909804, 1)
+
+[node name="RemoteTransform" type="RemoteTransform2D" parent="Layout/Preview/Source"]
+unique_name_in_owner = true
+remote_path = NodePath("../../Target")
+update_position = true
+update_rotation = true
+update_scale = true
+
+[node name="Target" type="Node2D" parent="Layout/Preview"]
+unique_name_in_owner = true
+position = Vector2(450, 155)
+
+[node name="Visual" type="Polygon2D" parent="Layout/Preview/Target"]
+polygon = PackedVector2Array(0, -32, 28, -16, 28, 16, 0, 32, -28, 16, -28, -16)
+color = Color(0.898039, 0.713725, 0.360784, 0.85)
+
+[node name="Hint" type="Label" parent="Layout"]
+layout_mode = 2
+modulate = Color(0.666667, 0.717647, 0.792157, 1)
+text = "开启同步后移动、旋转或缩放 Source，Target 会接收对应的变换。"
