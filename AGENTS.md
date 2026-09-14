@@ -5,6 +5,7 @@
 - 先阅读根目录的 `godot-implementation.md`，它是本项目 Godot 实现规范。
 - 本项目使用 Godot 4.7.x。
 - 功能验证台用于独立验证 Godot 功能细节，不承载正式游戏业务逻辑。
+- 本项目只验证 2D 和通用 Godot 功能，不新增任何 3D 节点、3D 场景、3D 资源或 3D 测试目录。
 
 ## 目录约定
 
@@ -23,16 +24,25 @@ res://
 ├── viewport/
 ├── input/
 ├── rendering/
-└── scene_resource/
+├── scene_resource/
+├── tween/
+├── resource_data/
+├── file_config/
+├── scene_lifecycle/
+├── audio_bus/
+├── window_display/
+├── visibility/
+└── physics_extra/
 ```
 
 - 根目录的 `test_hub` 只负责选择、加载、重置测试。
 - 每个测试使用一个根目录子目录；该测试的场景、脚本和专属资源必须放在同一目录。
 - `tilemap/` 包含 TileMap 测试及其全部图片资源，不再使用单独的 `layer/` 目录。
-- `particles/` 包含粒子测试场景和脚本；粒子纹理由测试脚本在运行时生成，不增加跨目录资源依赖。
+- `particles/` 包含粒子测试场景和脚本；粒子测试使用目录内场景定义的基础纹理，不增加跨目录资源依赖。
 - `physics/`、`animation/`、`camera/`、`audio/` 分别验证对应核心节点；每个测试目录保持独立。
 - `navigation/`、`viewport/`、`input/`、`rendering/`、`scene_resource/` 同样各自维护独立场景和脚本。
 - `controls/` 可以集中验证相关 UI 控件和布局容器，不为每个控件单独建立测试目录。
+- `tween/`、`resource_data/`、`file_config/`、`scene_lifecycle/`、`audio_bus/`、`window_display/`、`visibility/`、`physics_extra/` 分别维护对应的通用或 2D 功能验证。
 - 不保留临时入口场景或与验证台无关的重复入口。
 
 ## 测试隔离

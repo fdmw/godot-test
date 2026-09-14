@@ -1,0 +1,80 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://visibility/visibility_test.gd" id="1"]
+[ext_resource type="Texture2D" path="res://icon.svg" id="2"]
+
+[node name="VisibilityTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Layout" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="Controls" type="VBoxContainer" parent="Layout"]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Layout/Controls"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "可见性"
+
+[node name="Description" type="Label" parent="Layout/Controls"]
+layout_mode = 2
+modulate = Color(0.666667, 0.717647, 0.792157, 1)
+text = "验证 CanvasItem 可见性和 VisibleOnScreenNotifier2D。"
+autowrap_mode = 3
+
+[node name="ShowButton" type="Button" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "显示"
+
+[node name="HideButton" type="Button" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "隐藏"
+
+[node name="MoveButton" type="Button" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "移出屏幕"
+
+[node name="ResetButton" type="Button" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "重置位置"
+
+[node name="Status" type="Label" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.498039, 0.858824, 0.670588, 1)
+autowrap_mode = 3
+
+[node name="Preview" type="ColorRect" parent="Layout"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.0901961, 0.129412, 0.192157, 1)
+
+[node name="Sprite" type="Sprite2D" parent="Layout/Preview"]
+unique_name_in_owner = true
+position = Vector2(260, 170)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2")
+
+[node name="Notifier" type="VisibleOnScreenNotifier2D" parent="Layout/Preview/Sprite"]
+unique_name_in_owner = true
+rect = Rect2(-80, -80, 160, 160)
