@@ -1,6 +1,6 @@
 extends Control
 
-const TEST_TITLES: Array[String] = ["基础控件", "TileMap", "粒子特效", "物理", "动画", "摄像机", "音频", "导航", "Viewport", "输入", "2D 渲染", "场景资源", "Tween", "资源数据", "文件配置", "场景生命周期", "音频总线", "窗口显示", "可见性", "物理扩展"]
+const TEST_TITLES: Array[String] = ["基础控件", "TileMap", "粒子特效", "物理", "动画", "摄像机", "音频", "导航", "Viewport", "输入", "2D 渲染", "场景资源", "Tween", "资源数据", "文件配置", "场景生命周期", "音频总线", "窗口显示", "可见性", "物理扩展", "2D 路径", "AStar 寻路", "视差滚动", "对话弹窗"]
 const TEST_SUMMARIES: Array[String] = [
 	"验证常用输入、操作、选择、数值、布局和展示控件。",
 	"验证 TileMapLayer 场景和本地素材引用。",
@@ -22,6 +22,10 @@ const TEST_SUMMARIES: Array[String] = [
 	"验证窗口尺寸、全屏模式、拉伸和 Viewport 尺寸。",
 	"验证 CanvasItem 可见性和 VisibleOnScreenNotifier2D。",
 	"验证 2D 物理关节、刚体连接和关节启停。",
+	"验证 Path2D、Curve2D、PathFollow2D 和路径进度。",
+	"验证 AStar2D、AStarGrid2D、障碍点和路径结果。",
+	"验证 Parallax2D 的分层滚动、重复和滚动比例。",
+	"验证 AcceptDialog、ConfirmationDialog、FileDialog 和 PopupPanel。",
 ]
 const TEST_SCENES: Array[String] = [
 	"res://controls/control_test.tscn",
@@ -44,6 +48,10 @@ const TEST_SCENES: Array[String] = [
 	"res://window_display/window_display_test.tscn",
 	"res://visibility/visibility_test.tscn",
 	"res://physics_extra/physics_extra_test.tscn",
+	"res://path_2d/path_2d_test.tscn",
+	"res://astar/astar_test.tscn",
+	"res://parallax/parallax_test.tscn",
+	"res://dialog/dialog_test.tscn",
 ]
 
 @onready var _selector: OptionButton = %Selector

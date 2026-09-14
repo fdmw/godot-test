@@ -32,7 +32,11 @@ res://
 ├── audio_bus/
 ├── window_display/
 ├── visibility/
-└── physics_extra/
+├── physics_extra/
+├── path_2d/
+├── astar/
+├── parallax/
+└── dialog/
 ```
 
 - 根目录的 `test_hub` 只负责选择、加载、重置测试。
@@ -43,6 +47,7 @@ res://
 - `navigation/`、`viewport/`、`input/`、`rendering/`、`scene_resource/` 同样各自维护独立场景和脚本。
 - `controls/` 可以集中验证相关 UI 控件和布局容器，不为每个控件单独建立测试目录。
 - `tween/`、`resource_data/`、`file_config/`、`scene_lifecycle/`、`audio_bus/`、`window_display/`、`visibility/`、`physics_extra/` 分别维护对应的通用或 2D 功能验证。
+- `path_2d/`、`astar/`、`parallax/`、`dialog/` 分别验证 2D 路径、寻路、视差和常用弹窗节点。
 - 不保留临时入口场景或与验证台无关的重复入口。
 
 ## 测试隔离
