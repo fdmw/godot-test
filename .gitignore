@@ -1,0 +1,22 @@
+# Godot generated cache
+.godot/
+
+# Exported builds
+export/
+build/
+*.apk
+*.aab
+*.exe
+*.app
+*.dmg
+
+# Android generated project
+/android/
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Operating system files
+.DS_Store
+Thumbs.db

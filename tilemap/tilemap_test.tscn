@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://tilemap/tilemap_test.gd" id="1"]
+[ext_resource type="PackedScene" path="res://tilemap/Tile.tscn" id="2"]
+
+[node name="TileMapTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Info" type="Label" parent="Layout"]
+layout_mode = 2
+modulate = Color(0.666667, 0.717647, 0.792157, 1)
+text = "当前测试和所需素材均位于 tilemap/ 目录。"
+
+[node name="Viewport" type="SubViewportContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Layout/Viewport"]
+size = Vector2i(700, 500)
+transparent_bg = true
+
+[node name="Tile" parent="Layout/Viewport/SubViewport" instance=ExtResource("2")]
+position = Vector2(20, 20)

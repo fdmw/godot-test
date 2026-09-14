@@ -1,0 +1,73 @@
+extends Control
+
+const TEST_TITLES: Array[String] = ["基础控件", "TileMap", "粒子特效", "物理", "动画", "摄像机", "音频", "导航", "Viewport", "输入", "2D 渲染", "场景资源"]
+const TEST_SUMMARIES: Array[String] = [
+	"验证常用输入、操作、选择、数值、布局和展示控件。",
+	"验证 TileMapLayer 场景和本地素材引用。",
+	"验证 GPUParticles2D 和 ParticleProcessMaterial 的常用特性。",
+	"验证常用 2D 物理节点、碰撞体和空间查询。",
+	"验证 AnimationPlayer、AnimatedSprite2D 和 Timer。",
+	"验证 Camera2D、CanvasLayer、缩放、平滑和边界。",
+	"验证普通音频、空间音频、监听器和播放参数。",
+	"验证 NavigationRegion2D、NavigationAgent2D 和 NavigationObstacle2D。",
+	"验证 SubViewport、SubViewportContainer、ViewportTexture 和输入传递。",
+	"验证 InputMap、_input、_unhandled_input、_gui_input 和焦点。",
+	"验证常用 2D 绘制节点、灯光、遮挡、画布调制和 ShaderMaterial。",
+	"验证 PackedScene 实例化、节点配置、queue_free 和资源读取。",
+]
+const TEST_SCENES: Array[String] = [
+	"res://controls/control_test.tscn",
+	"res://tilemap/tilemap_test.tscn",
+	"res://particles/particles_test.tscn",
+	"res://physics/physics_test.tscn",
+	"res://animation/animation_test.tscn",
+	"res://camera/camera_test.tscn",
+	"res://audio/audio_test.tscn",
+	"res://navigation/navigation_test.tscn",
+	"res://viewport/viewport_test.tscn",
+	"res://input/input_test.tscn",
+	"res://rendering/rendering_test.tscn",
+	"res://scene_resource/scene_resource_test.tscn",
+]
+
+@onready var _selector: OptionButton = %Selector
+@onready var _reset_button: Button = %ResetButton
+@onready var _title: Label = %Title
+@onready var _summary: Label = %Summary
+@onready var _content: Control = %Content
+var _current_test: Control
+
+func _ready() -> void:
+	for title: String in TEST_TITLES:
+		_selector.add_item(title)
+	_selector.item_selected.connect(_select_test)
+	_reset_button.pressed.connect(_reset_test)
+	_select_test(0)
+
+func _select_test(index: int) -> void:
+	if index < 0 or index >= TEST_SCENES.size():
+		return
+	_title.text = TEST_TITLES[index]
+	_summary.text = TEST_SUMMARIES[index]
+	_free_current_test()
+	var packed_scene := load(TEST_SCENES[index]) as PackedScene
+	if packed_scene == null:
+		_summary.text = "场景加载失败：" + TEST_SCENES[index]
+		return
+	var instance := packed_scene.instantiate()
+	_current_test = instance as Control
+	if _current_test == null:
+		instance.free()
+		_summary.text = "测试场景根节点必须是 Control。"
+		return
+	_content.add_child(_current_test)
+
+func _reset_test() -> void:
+	_select_test(_selector.selected)
+
+func _free_current_test() -> void:
+	if not is_instance_valid(_current_test):
+		_current_test = null
+		return
+	_current_test.queue_free()
+	_current_test = null
