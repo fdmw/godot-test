@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证 Parallax2D 的分层滚动、滚动比例、重复范围和滚动方向。
+# 机制说明：_process() 只推进连续的视觉滚动，不承担离散业务状态结算。
+
 @onready var _background: Parallax2D = %Background
 @onready var _foreground: Parallax2D = %Foreground
 @onready var _speed: HSlider = %Speed

@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证 Path2D、Curve2D、PathFollow2D 的路径进度、循环和连续跟随表现。
+# 机制说明：_process() 只在播放时推进 PathFollow2D 的 progress，停止后不继续消耗帧更新。
+
 @onready var _follower: PathFollow2D = %Follower
 @onready var _progress: HSlider = %Progress
 @onready var _play_button: Button = %PlayButton

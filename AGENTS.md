@@ -54,7 +54,7 @@ res://
 - `tilemap/` 包含 TileMap 测试及其资源，不再使用单独的 `layer/` 目录；基础单元格验证使用场景内生成的 TileSet，不恢复用户删除的图片。
 - `particles/` 包含粒子测试场景和脚本；粒子测试使用目录内场景定义的基础纹理，不增加跨目录资源依赖。
 - `physics/`、`animation/`、`camera/`、`audio/` 分别验证对应核心节点；每个测试目录保持独立。
-- `navigation/`、`viewport/`、`input/`、`rendering/`、`scene_resource/` 同样各自维护独立场景和脚本。
+- `navigation/`、`viewport/`、`input/`、`rendering/`、`scene_resource/` 同样各自维护独立场景和脚本；`navigation/` 同时验证 NavigationAgent2D 的安全速度和避障开关。
 - `controls/` 可以集中验证相关 UI 控件和布局容器，不为每个控件单独建立测试目录。
 - `controls/` 同时验证 Theme、StyleBox 和控件状态样式，相关 Theme 资源与控件场景放在同一目录。
 - `tween/`、`resource_data/`、`file_config/`、`scene_lifecycle/`、`audio_bus/`、`window_display/`、`visibility/`、`physics_extra/` 分别维护对应的通用或 2D 功能验证。

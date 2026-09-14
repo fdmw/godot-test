@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：对比 AStar2D 图和 AStarGrid2D 网格的点、连接、障碍和寻路结果。
+# 场景数据：网格范围、起终点和障碍位置由场景中的 Marker2D/ColorRect 固定。
+
 @onready var _grid_path: Line2D = %GridPath
 @onready var _graph_path: Line2D = %GraphPath
 @onready var _status: Label = %Status

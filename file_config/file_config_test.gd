@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证 FileAccess、JSON、ConfigFile 在 user:// 下的保存、读取和清理。
+# 机制说明：文件路径使用 user://，避免测试写入项目资源目录，也便于重复执行验证。
+
 const JSON_PATH := "user://validation_data.json"
 const CONFIG_PATH := "user://validation_data.cfg"
 

@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：对比 AnimationPlayer、AnimatedSprite2D、Timer 的播放、暂停、停止和完成通知。
+# 场景数据：动画片段、精灵帧和初始控件状态固定在 animation_test.tscn。
+
 @onready var _player: AnimationPlayer = %Player
 @onready var _animated_sprite: AnimatedSprite2D = %AnimatedSprite
 @onready var _timer: Timer = %Timer

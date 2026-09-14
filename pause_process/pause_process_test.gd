@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证 SceneTree 暂停、节点 process_mode、Timer 和 AnimationPlayer 的暂停行为。
+# 机制说明：两个 Timer 分别使用可暂停和始终处理模式，用计数结果直观看出暂停边界。
+
 @onready var _pausable_timer: Timer = %PausableTimer
 @onready var _always_timer: Timer = %AlwaysTimer
 @onready var _player: AnimationPlayer = %Player
@@ -20,12 +23,14 @@ func _ready() -> void:
 	_reset_test()
 
 func _exit_tree() -> void:
+	# 测试场景可能从暂停状态被切换出去，离开时必须恢复全局暂停状态。
 	get_tree().paused = false
 
 func _toggle_pause() -> void:
 	_set_paused(not get_tree().paused)
 
 func _set_paused(value: bool) -> void:
+	# Timer 是否继续计数由节点 process_mode 决定，而不是由回调内部手动跳过。
 	get_tree().paused = value
 	_pause_button.text = "继续运行" if value else "暂停场景"
 	_status.text = "SceneTree.paused = %s" % value

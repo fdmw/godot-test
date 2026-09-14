@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证 RemoteTransform2D 对目标节点的位置、旋转和缩放同步，以及同步开关。
+# 机制说明：Source 是唯一被操作的节点，Target 的变化用于观察 RemoteTransform2D 的代理效果。
+
 @onready var _source: Node2D = %Source
 @onready var _target: Node2D = %Target
 @onready var _remote: RemoteTransform2D = %RemoteTransform

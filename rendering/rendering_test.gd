@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证 2D 绘制节点、CanvasModulate、PointLight2D、遮挡、纹理区域、滤镜和 ShaderMaterial。
+# 机制说明：自定义绘制节点的数据固定在场景；脚本只切换绘制状态并通过 queue_redraw() 请求重绘。
+
 const DrawCanvas = preload("res://rendering/draw_canvas.gd")
 
 @onready var _sprite: Sprite2D = %Sprite

@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证 TranslationServer、ResourcePreloader、语言切换和动态文本翻译。
+# 生命周期说明：进入场景时保存原语言，退出场景时恢复，避免影响测试台和其他场景。
+
 @onready var _translations: ResourcePreloader = %Translations
 @export var zh_translation: Translation
 @export var en_translation: Translation
@@ -30,6 +33,7 @@ func _ready() -> void:
 	_set_locale(0)
 
 func _exit_tree() -> void:
+	# TranslationServer 是进程级服务，退出时撤销本测试注册的翻译并恢复原语言。
 	if _zh_translation != null:
 		TranslationServer.remove_translation(_zh_translation)
 	if _en_translation != null:

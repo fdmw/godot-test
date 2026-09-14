@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：集中验证 CharacterBody2D、RigidBody2D、Area2D、碰撞几何、RayCast2D 和 ShapeCast2D。
+# 机制说明：_physics_process() 仅用于连续物理运动与状态展示；场景中的碰撞几何是空间事实来源。
+
 @onready var _character: CharacterBody2D = %Character
 @onready var _rigid_body: RigidBody2D = %RigidBody
 @onready var _area: Area2D = %Area
@@ -37,11 +40,13 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if not is_instance_valid(_character):
 		return
+	# CharacterBody2D 的移动必须在物理帧中完成；这里的速度和重力只服务于连续演示。
 	if _character.is_on_floor():
 		_character.velocity.x = 70.0
 	else:
 		_character.velocity.y += 700.0 * delta
 	if _character.position.x > 650.0:
+		# 重生位置来自场景 Marker2D，避免脚本再维护一份静态空间坐标。
 		_character.position = _respawn_point.position
 		_character.velocity = Vector2(70, 0)
 	_character.move_and_slide()
@@ -73,6 +78,7 @@ func _force_update_casts() -> void:
 	if not _cast_enabled:
 		_status.text = "投射已关闭，无法立即刷新"
 		return
+	# force_*_update() 用于演示查询节点的立即刷新，不改变场景中的碰撞几何。
 	_ray_cast.force_raycast_update()
 	_shape_cast.force_shapecast_update()
 	_update_status()

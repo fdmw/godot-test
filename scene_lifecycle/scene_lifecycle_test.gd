@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：观察通知、enter_tree、ready、process、queue_free、tree 信号和 exit_tree 的顺序。
+# 机制说明：Probe 用于观察子节点生命周期；root 的 _notification() 与生命周期方法并列记录。
+
 @onready var _status: Label = %Status
 @onready var _event_log: Label = %EventLog
 @onready var _probe: Node = %Probe
@@ -11,6 +14,7 @@ var _process_count := 0
 func _enter_tree() -> void:
 	_events.append("root._enter_tree")
 	var probe := get_node("Probe")
+	# 在父节点进入树时连接子节点信号，才能观察 Probe 首次进入树的事件。
 	if not probe.tree_entered.is_connected(_on_probe_tree_entered):
 		probe.tree_entered.connect(_on_probe_tree_entered)
 
@@ -23,6 +27,7 @@ func _ready() -> void:
 	_update_view()
 
 func _notification(what: int) -> void:
+	# notification 与生命周期虚方法并非同一个回调入口，分别记录用于对照调用顺序。
 	match what:
 		NOTIFICATION_ENTER_TREE:
 			_events.append("root.notification: ENTER_TREE")
@@ -48,6 +53,7 @@ func _record_again() -> void:
 
 func _free_probe() -> void:
 	if is_instance_valid(_probe):
+		# queue_free() 只请求销毁；后续 tree_exiting/tree_exited 信号用于观察实际退出过程。
 		_probe.queue_free()
 		_events.append("probe.queue_free")
 		_update_view()

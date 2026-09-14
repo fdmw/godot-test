@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证 Node2D、CanvasLayer、CanvasGroup 之间的坐标转换和分组显示。
+# 机制说明：世界坐标、全局坐标和 Canvas 坐标分别显示，便于观察转换基准的差异。
+
 @onready var _world: Node2D = %World
 @onready var _world_marker: Marker2D = %WorldMarker
 @onready var _canvas_layer: CanvasLayer = %OverlayLayer

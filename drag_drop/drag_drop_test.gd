@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证 Control 的拖放预览、可放置判断、放置回调和 Signal 连接。
+# 机制说明：拖动源和放置目标是场景节点，脚本通过类型化预加载引用连接两端事件。
+
 const DragSourceScript = preload("res://drag_drop/drag_source.gd")
 const DropTargetScript = preload("res://drag_drop/drop_target.gd")
 

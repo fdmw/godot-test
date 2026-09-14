@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：覆盖 GPUParticles2D 和 ParticleProcessMaterial 的发射、方向、重力、颜色、轨迹等常用特性。
+# 机制说明：预览节点和基础纹理固定在场景中；预设切换只修改被验证的粒子参数。
+
 enum Preset {
 	FOUNTAIN,
 	BURST,

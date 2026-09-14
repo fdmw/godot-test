@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证 PinJoint2D、DampedSpringJoint2D 的连接、启停、弹簧和刚体响应。
+# 机制说明：关节几何和连接关系固定在场景中；禁用碰撞相关属性使用 set_deferred() 遵守引擎时序。
+
 @onready var _body_a: RigidBody2D = %BodyA
 @onready var _body_b: RigidBody2D = %BodyB
 @onready var _pin: PinJoint2D = %PinJoint

@@ -37,7 +37,7 @@ text = "导航"
 [node name="Description" type="Label" parent="Layout/Controls"]
 layout_mode = 2
 modulate = Color(0.666667, 0.717647, 0.792157, 1)
-text = "NavigationRegion2D、NavigationAgent2D、NavigationLink2D、NavigationObstacle2D"
+text = "NavigationRegion2D、NavigationAgent2D、NavigationLink2D、NavigationObstacle2D 和避障"
 autowrap_mode = 3
 
 [node name="TargetOne" type="Button" parent="Layout/Controls"]
@@ -70,6 +70,12 @@ text = "启用 NavigationLink2D"
 unique_name_in_owner = true
 layout_mode = 2
 text = "代理使用第 2 层"
+
+[node name="AvoidanceToggle" type="CheckBox" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "启用 Agent 避障"
 
 [node name="Status" type="Label" parent="Layout/Controls"]
 unique_name_in_owner = true

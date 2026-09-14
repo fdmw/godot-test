@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证 Tween 的缓动曲线、串行/并行播放、停止和重新创建。
+# 机制说明：Tween 是一次性运行时对象，停止或重新播放前先结束旧 Tween，避免多个动画同时写同一属性。
+
 enum Transition {
 	LINEAR,
 	SINE,
@@ -27,6 +30,7 @@ func _ready() -> void:
 	_reset_tween()
 
 func _play_tween() -> void:
+	# Tween 是一次性对象，先终止旧实例，避免多个 Tween 同时写入同一 Sprite2D 属性。
 	_stop_tween()
 	_tween = create_tween()
 	_tween.set_trans(_selected_transition())

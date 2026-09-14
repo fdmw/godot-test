@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证 AcceptDialog、ConfirmationDialog、FileDialog 和 PopupPanel 的打开及结果信号。
+# 机制说明：弹窗节点固定在场景中，脚本只负责调用显示接口并处理用户结果。
+
 @onready var _accept_dialog: AcceptDialog = %AcceptDialog
 @onready var _confirm_dialog: ConfirmationDialog = %ConfirmationDialog
 @onready var _file_dialog: FileDialog = %FileDialog

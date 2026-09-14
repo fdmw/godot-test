@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证 Camera2D 的当前相机、缩放、平滑跟随和边界限制。
+# 场景数据：相机初始位置、限制范围和目标节点固定在 camera_test.tscn。
+
 @onready var _camera: Camera2D = %Camera
 @onready var _status: Label = %Status
 @onready var _zoom_slider: HSlider = %ZoomSlider

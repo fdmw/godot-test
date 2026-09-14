@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证 PackedScene 加载、实例化、运行时节点生命周期和批量清理。
+# 机制说明：运行时实例化是本测试目标，因此实例放入专用 SpawnRoot，并由清理按钮统一 queue_free。
+
 var _packed_scene: PackedScene
 @onready var _spawn_root: Node2D = %SpawnRoot
 @onready var _status: Label = %Status
@@ -20,6 +23,7 @@ func _spawn_item() -> void:
 	if item == null:
 		_status.text = "实例根节点不是 Node2D"
 		return
+	# 这里的运行时创建本身就是 PackedScene 验证目标；统一挂入 SpawnRoot 便于清理。
 	_spawn_count += 1
 	item.position = Vector2(380 + (_spawn_count % 4) * 130, 180 + (_spawn_count % 3) * 110)
 	_spawn_root.add_child(item)

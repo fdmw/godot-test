@@ -28,7 +28,7 @@ text = "窗口与显示"
 [node name="Description" type="Label" parent="Layout"]
 layout_mode = 2
 modulate = Color(0.666667, 0.717647, 0.792157, 1)
-text = "验证窗口尺寸、全屏模式和当前 Viewport 尺寸。"
+text = "验证窗口尺寸、全屏模式、Viewport 尺寸以及项目 Stretch/Aspect 配置。"
 
 [node name="SizeLabel" type="Label" parent="Layout"]
 layout_mode = 2

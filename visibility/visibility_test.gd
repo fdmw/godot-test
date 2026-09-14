@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证 CanvasItem.visible 和 VisibleOnScreenNotifier2D 的进入/离开屏幕通知。
+# 机制说明：移动按钮只改变场景中 Sprite2D 的位置，用 notifier 信号观察可见性变化。
+
 @onready var _sprite: Sprite2D = %Sprite
 @onready var _notifier: VisibleOnScreenNotifier2D = %Notifier
 @onready var _status: Label = %Status

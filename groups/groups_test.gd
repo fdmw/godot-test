@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证节点加入、移除、查询 Group，以及 Group 对成员的批量操作边界。
+# 机制说明：Group 只用于分类和查询；测试不依赖 Group 进行服务定位或核心逻辑派发。
+
 const VALIDATION_GROUP: StringName = &"validation_items"
 
 @onready var _item_a: ColorRect = %ItemA

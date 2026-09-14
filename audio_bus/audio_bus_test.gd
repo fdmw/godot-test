@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证 AudioServer 总线的创建、音量、静音和效果器参数。
+# 生命周期说明：测试只在进入场景时创建自己的临时总线，并在退出场景时移除，避免污染其他测试。
+
 const SAMPLE_RATE := 44100
 const BUS_NAME := "ValidationBus"
 
@@ -13,6 +16,9 @@ const BUS_NAME := "ValidationBus"
 @onready var _reset_button: Button = %ResetButton
 var _bus_index := -1
 var _created_bus := false
+var _effect_index := -1
+var _original_volume_db := 0.0
+var _original_mute := false
 
 func _ready() -> void:
 	_bus_index = AudioServer.get_bus_index(BUS_NAME)
@@ -21,9 +27,13 @@ func _ready() -> void:
 		_bus_index = AudioServer.bus_count - 1
 		AudioServer.set_bus_name(_bus_index, BUS_NAME)
 		_created_bus = true
+	else:
+		_original_volume_db = AudioServer.get_bus_volume_db(_bus_index)
+		_original_mute = AudioServer.is_bus_mute(_bus_index)
 	var filter := AudioEffectLowPassFilter.new()
 	filter.cutoff_hz = _cutoff.value
 	AudioServer.add_bus_effect(_bus_index, filter)
+	_effect_index = AudioServer.get_bus_effect_count(_bus_index) - 1
 	_player.bus = BUS_NAME
 	_player.stream = _make_tone(440.0, 1.0)
 	_play_button.pressed.connect(_play)
@@ -35,8 +45,14 @@ func _ready() -> void:
 	_reset()
 
 func _exit_tree() -> void:
+	# 只有本次场景实际创建的总线才由测试负责删除；已有总线恢复原参数并移除测试效果器。
 	if _created_bus and _bus_index >= 0 and _bus_index < AudioServer.bus_count:
 		AudioServer.remove_bus(_bus_index)
+	elif _bus_index >= 0 and _bus_index < AudioServer.bus_count:
+		if _effect_index >= 0 and _effect_index < AudioServer.get_bus_effect_count(_bus_index):
+			AudioServer.remove_bus_effect(_bus_index, _effect_index)
+		AudioServer.set_bus_volume_db(_bus_index, _original_volume_db)
+		AudioServer.set_bus_mute(_bus_index, _original_mute)
 
 func _play() -> void:
 	_player.play()

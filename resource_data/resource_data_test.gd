@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证自定义 Resource、duplicate、嵌套数据引用和运行时只读边界。
+# 机制说明：修改操作针对副本；测试用界面展示原资源和副本是否发生了意外的共享修改。
+
 class ValidationResource extends Resource:
 	@export var title: String = ""
 	@export var amount: int = 0
@@ -33,6 +36,7 @@ func _duplicate_resource() -> void:
 	if _resource == null:
 		_update_view("请先创建 Resource")
 		return
+	# 使用 deep duplicate，确保 tags 数组不会与原 Resource 共享可变容器。
 	_copy = _resource.duplicate(true) as ValidationResource
 	_update_view("已复制 Resource，等待修改副本")
 

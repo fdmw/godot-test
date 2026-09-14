@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证 InputMap、语义 Action、原始输入事件、GUI 输入和焦点变化。
+# 机制说明：Action 在测试结束时恢复，避免动态注册的输入动作泄漏到其他测试。
+
 const LEFT_ACTION := "validation_move_left"
 const RIGHT_ACTION := "validation_move_right"
 
@@ -28,6 +31,7 @@ func _ready() -> void:
 	_mouse_panel.gui_input.connect(_on_panel_gui_input)
 
 func _exit_tree() -> void:
+	# 只删除本场景创建的 Action，不触碰项目原有 InputMap 配置。
 	for action: StringName in _created_actions:
 		if InputMap.has_action(action):
 			InputMap.erase_action(action)

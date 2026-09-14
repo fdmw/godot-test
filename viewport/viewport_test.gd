@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证 SubViewport、SubViewportContainer、ViewportTexture、刷新模式和输入传递。
+# 机制说明：TextureRect 显示 SubViewport 的纹理；输入监听挂在 SubViewport 内容节点而不是主界面根节点。
+
 @onready var _viewport: SubViewport = %Viewport
 @onready var _viewport_label: Label = %ViewportLabel
 @onready var _status: Label = %Status

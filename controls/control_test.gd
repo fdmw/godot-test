@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：集中验证常用输入、选择、数值、列表、弹出、树和布局控件。
+# 机制说明：静态控件层级在场景中定义；脚本只连接 Signal、更新状态和切换 Theme。
+
 @export var validation_theme: Theme
 
 @onready var _status: Label = %Status
@@ -32,6 +35,7 @@ func _ready() -> void:
 	_popup_menu.id_pressed.connect(_on_popup_item_pressed)
 	_theme_toggle.toggled.connect(_set_validation_theme)
 
+	# 这些列表项是控件 API 的运行时数据，不是静态布局，因此在 ready 后填充。
 	_option_button.add_item("OptionButton：选项 A")
 	_option_button.add_item("OptionButton：选项 B")
 	_option_button.add_item("OptionButton：选项 C")
@@ -81,5 +85,6 @@ func _on_popup_item_pressed(id: int) -> void:
 	_status.text = "PopupMenu 选择了菜单项：%d" % id
 
 func _set_validation_theme(value: bool) -> void:
+	# Theme 挂在根 Control 后会向子控件传播；置空用于观察默认主题的回退行为。
 	theme = validation_theme if value else null
 	_status.text = "Theme：" + ("启用覆盖样式" if value else "恢复默认样式")

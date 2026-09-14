@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：验证 Skeleton2D、Bone2D 层级、姿态变换和 TwoBoneIK 修改栈。
+# 机制说明：骨骼层级固定在场景；IK 修改对象运行时创建，因为本测试直接验证修改栈配置接口。
+
 @onready var _skeleton: Skeleton2D = %Skeleton
 @onready var _upper_bone: Bone2D = %UpperBone
 @onready var _lower_bone: Bone2D = %LowerBone
@@ -17,6 +20,7 @@ var _two_bone_ik: SkeletonModification2DTwoBoneIK
 
 func _enter_tree() -> void:
 	var lower_bone := get_node("Layout/Preview/Skeleton/UpperBone/LowerBone") as Bone2D
+	# 测试手动控制骨骼长度，关闭自动计算以避免编辑器/运行时重新推导覆盖演示值。
 	lower_bone.set_autocalculate_length_and_angle(false)
 
 func _ready() -> void:
@@ -29,9 +33,11 @@ func _ready() -> void:
 	_reset_pose()
 
 func _build_ik() -> void:
+	# IK 修改栈是本测试要验证的运行时 API；UpperBone/LowerBone 对应骨骼索引 0/1。
 	_two_bone_ik = SkeletonModification2DTwoBoneIK.new()
 	_two_bone_ik.set_joint_one_bone_idx(0)
 	_two_bone_ik.set_joint_two_bone_idx(1)
+	# 目标路径相对于 Skeleton2D 所在节点解析，IKTarget 与 Skeleton 是同级节点。
 	_two_bone_ik.set_target_node(NodePath("../IKTarget"))
 	_ik_stack = SkeletonModificationStack2D.new()
 	_ik_stack.add_modification(_two_bone_ik)

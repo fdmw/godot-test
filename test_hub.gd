@@ -19,7 +19,7 @@ const TEST_SUMMARIES: Array[String] = [
 	"验证 FileAccess、JSON、ConfigFile 和 user:// 持久化。",
 	"验证节点通知、tree 信号、进入树、ready、process、退出树和释放顺序。",
 	"验证 AudioBus、音量、静音和总线效果器。",
-	"验证窗口尺寸、全屏模式、拉伸和 Viewport 尺寸。",
+	"验证窗口尺寸、全屏模式、项目拉伸配置和 Viewport 尺寸。",
 	"验证 CanvasItem 可见性和 VisibleOnScreenNotifier2D。",
 	"验证 2D 物理关节、刚体连接和关节启停。",
 	"验证 Path2D、Curve2D、PathFollow2D 和路径进度。",

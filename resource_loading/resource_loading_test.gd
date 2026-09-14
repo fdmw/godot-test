@@ -1,5 +1,8 @@
 extends Control
 
+# 验证目标：对比 preload、ResourceLoader、ResourcePreloader 的加载、缓存和释放行为。
+# 机制说明：静态 preload 资源来自场景导出属性，运行时加载资源单独保存并可显式释放引用。
+
 @export var preload_data: Resource
 
 @onready var _preloader: ResourcePreloader = %Preloader
