@@ -13,44 +13,45 @@
 res://
 ├── test_hub.tscn
 ├── test_hub.gd
-├── controls/
-├── tilemap/
-├── particles/
-├── physics/
-├── animation/
-├── camera/
-├── audio/
-├── navigation/
-├── viewport/
-├── input/
-├── rendering/
-├── scene_resource/
-├── tween/
-├── resource_data/
-├── file_config/
-├── scene_lifecycle/
-├── audio_bus/
-├── window_display/
-├── visibility/
-├── physics_extra/
-├── path_2d/
-├── astar/
-├── parallax/
-├── dialog/
-├── drag_drop/
-├── canvas_transform/
-├── resource_loading/
-├── localization/
-├── animation_tree/
-├── pause_process/
-├── groups/
-├── skeleton_2d/
-├── remote_transform_2d/
-└── navigation_query/
+└── tests/
+	├── controls/
+	├── tilemap/
+	├── particles/
+	├── physics/
+	├── animation/
+	├── camera/
+	├── audio/
+	├── navigation/
+	├── viewport/
+	├── input/
+	├── rendering/
+	├── scene_resource/
+	├── tween/
+	├── resource_data/
+	├── file_config/
+	├── scene_lifecycle/
+	├── audio_bus/
+	├── window_display/
+	├── visibility/
+	├── physics_extra/
+	├── path_2d/
+	├── astar/
+	├── parallax/
+	├── dialog/
+	├── drag_drop/
+	├── canvas_transform/
+	├── resource_loading/
+	├── localization/
+	├── animation_tree/
+	├── pause_process/
+	├── groups/
+	├── skeleton_2d/
+	├── remote_transform_2d/
+	└── navigation_query/
 ```
 
 - 根目录的 `test_hub` 只负责选择、加载、重置测试。
-- 每个测试使用一个根目录子目录；该测试的场景、脚本和专属资源必须放在同一目录。
+- 所有功能测试统一放在 `tests/` 下；每个测试使用 `tests/` 的一个直接子目录，该测试的场景、脚本和专属资源必须放在同一目录。
 - `tilemap/` 包含 TileMap 测试及其资源，不再使用单独的 `layer/` 目录；基础单元格验证使用场景内生成的 TileSet，不恢复用户删除的图片。
 - `particles/` 包含粒子测试场景和脚本；粒子测试使用目录内场景定义的基础纹理，不增加跨目录资源依赖。
 - `physics/`、`animation/`、`camera/`、`audio/` 分别验证对应核心节点；每个测试目录保持独立。

@@ -1,0 +1,91 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://tests/tilemap/tilemap_test.gd" id="1"]
+
+[sub_resource type="Gradient" id="Gradient_tiles"]
+colors = PackedColorArray(0.2, 0.7, 0.9, 1, 0.9, 0.5, 0.2, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture_tiles"]
+gradient = SubResource("Gradient_tiles")
+width = 64
+height = 32
+fill_from = Vector2(0, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_basic"]
+texture = SubResource("GradientTexture_tiles")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_basic"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_basic")
+
+[node name="TileMapTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Info" type="Label" parent="Layout"]
+layout_mode = 2
+modulate = Color(0.666667, 0.717647, 0.792157, 1)
+text = "使用场景内生成的 TileSet，无需外部图片；按钮验证单元格写入、读取、清空和坐标转换。"
+
+[node name="Viewport" type="SubViewportContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Layout/Viewport"]
+size = Vector2i(700, 500)
+transparent_bg = true
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Layout/Viewport/SubViewport"]
+unique_name_in_owner = true
+tile_set = SubResource("TileSet_basic")
+
+[node name="MarkerA" type="Marker2D" parent="Layout/Viewport/SubViewport"]
+unique_name_in_owner = true
+position = Vector2(80, 80)
+
+[node name="MarkerB" type="Marker2D" parent="Layout/Viewport/SubViewport"]
+unique_name_in_owner = true
+position = Vector2(112, 80)
+
+[node name="Toolbar" type="HBoxContainer" parent="Layout"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="WriteButton" type="Button" parent="Layout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "写入单元格"
+
+[node name="ReadButton" type="Button" parent="Layout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "读取单元格"
+
+[node name="ClearButton" type="Button" parent="Layout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "清空"
+
+[node name="Status" type="Label" parent="Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "等待操作"

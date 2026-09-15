@@ -1,0 +1,126 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://tests/viewport/viewport_test.gd" id="1"]
+
+[node name="ViewportTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Layout" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="Controls" type="VBoxContainer" parent="Layout"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Layout/Controls"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Viewport"
+
+[node name="Description" type="Label" parent="Layout/Controls"]
+layout_mode = 2
+modulate = Color(0.666667, 0.717647, 0.792157, 1)
+text = "SubViewport、SubViewportContainer、ViewportTexture 和输入传递"
+autowrap_mode = 3
+
+[node name="Update" type="CheckBox" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "持续更新"
+
+[node name="Status" type="Label" parent="Layout/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.498039, 0.858824, 0.670588, 1)
+text = "等待 Viewport 输入"
+autowrap_mode = 3
+
+[node name="Display" type="VBoxContainer" parent="Layout"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Container" type="SubViewportContainer" parent="Layout/Display"]
+custom_minimum_size = Vector2(480, 300)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="Viewport" type="SubViewport" parent="Layout/Display/Container"]
+unique_name_in_owner = true
+size = Vector2i(480, 300)
+handle_input_locally = true
+render_target_update_mode = 4
+
+[node name="Background" type="ColorRect" parent="Layout/Display/Container/Viewport"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.14902, 0.219608, 0.305882, 1)
+
+[node name="ViewportContent" type="Control" parent="Layout/Display/Container/Viewport"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="Title" type="Label" parent="Layout/Display/Container/Viewport/ViewportContent"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 240.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 22
+text = "独立渲染画布"
+
+[node name="Block" type="ColorRect" parent="Layout/Display/Container/Viewport/ViewportContent"]
+layout_mode = 0
+offset_left = 130.0
+offset_top = 100.0
+offset_right = 310.0
+offset_bottom = 190.0
+color = Color(0.384314, 0.690196, 0.909804, 1)
+
+[node name="ViewportLabel" type="Label" parent="Layout/Display/Container/Viewport/ViewportContent"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 24.0
+offset_top = 240.0
+offset_right = 300.0
+offset_bottom = 268.0
+text = "点击这里测试 SubViewport 输入"
+
+[node name="TextureHint" type="Label" parent="Layout/Display"]
+layout_mode = 2
+modulate = Color(0.666667, 0.717647, 0.792157, 1)
+text = "上方为 SubViewportContainer；下方直接使用 ViewportTexture。"
+
+[node name="TextureRect" type="TextureRect" parent="Layout/Display"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 140)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5

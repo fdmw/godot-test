@@ -1,0 +1,80 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://tests/parallax/parallax_test.gd" id="1_script"]
+
+[node name="ParallaxTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="Toolbar" type="HBoxContainer" parent="Layout"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="PlayButton" type="Button" parent="Layout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "播放"
+
+[node name="ResetButton" type="Button" parent="Layout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "重置"
+
+[node name="Direction" type="OptionButton" parent="Layout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Speed" type="HSlider" parent="Layout/Toolbar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+max_value = 240.0
+value = 70.0
+
+[node name="Status" type="Label" parent="Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.498039, 0.858824, 0.670588, 1)
+
+[node name="Preview" type="ColorRect" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+clip_contents = true
+color = Color(0.0901961, 0.129412, 0.192157, 1)
+
+[node name="Background" type="Parallax2D" parent="Layout/Preview"]
+unique_name_in_owner = true
+scroll_scale = Vector2(0.35, 0.35)
+repeat_size = Vector2(560, 0)
+
+[node name="Bands" type="Polygon2D" parent="Layout/Preview/Background"]
+polygon = PackedVector2Array(-80, 280, 100, 160, 260, 260, 430, 130, 620, 250, 620, 420, -80, 420)
+color = Color(0.180392, 0.305882, 0.45098, 0.85)
+
+[node name="Foreground" type="Parallax2D" parent="Layout/Preview"]
+unique_name_in_owner = true
+scroll_scale = Vector2(1, 1)
+repeat_size = Vector2(560, 0)
+
+[node name="Pillars" type="Polygon2D" parent="Layout/Preview/Foreground"]
+polygon = PackedVector2Array(80, 320, 120, 160, 160, 320, 260, 320, 300, 210, 340, 320, 470, 320, 520, 130, 570, 320)
+color = Color(0.321569, 0.690196, 0.776471, 0.8)
+
+[node name="Hint" type="Label" parent="Layout"]
+layout_mode = 2
+modulate = Color(0.666667, 0.717647, 0.792157, 1)
+text = "背景和前景使用不同 scroll_scale；播放后观察分层滚动速度差异。"

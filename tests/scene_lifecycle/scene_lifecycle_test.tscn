@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://tests/scene_lifecycle/scene_lifecycle_test.gd" id="1"]
+
+[node name="SceneLifecycleTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Layout"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "场景生命周期"
+
+[node name="Description" type="Label" parent="Layout"]
+layout_mode = 2
+modulate = Color(0.666667, 0.717647, 0.792157, 1)
+text = "观察通知、tree 信号、enter_tree、ready、process、queue_free 和 exit_tree 的发生顺序。"
+
+[node name="Toolbar" type="HBoxContainer" parent="Layout"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="RecordButton" type="Button" parent="Layout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "记录事件"
+
+[node name="FreeButton" type="Button" parent="Layout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "释放 Probe"
+
+[node name="Status" type="Label" parent="Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.498039, 0.858824, 0.670588, 1)
+
+[node name="EventLog" type="Label" parent="Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Probe" type="Node2D" parent="."]
+unique_name_in_owner = true

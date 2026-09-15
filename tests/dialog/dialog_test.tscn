@@ -1,0 +1,105 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://tests/dialog/dialog_test.gd" id="1_script"]
+
+[node name="DialogTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Layout"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "常用对话弹窗"
+
+[node name="Description" type="Label" parent="Layout"]
+layout_mode = 2
+modulate = Color(0.666667, 0.717647, 0.792157, 1)
+text = "场景中固定声明弹窗节点，脚本只负责打开、关闭和接收结果。"
+
+[node name="Buttons" type="HBoxContainer" parent="Layout"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="AcceptButton" type="Button" parent="Layout/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "AcceptDialog"
+
+[node name="ConfirmButton" type="Button" parent="Layout/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ConfirmationDialog"
+
+[node name="FileButton" type="Button" parent="Layout/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "FileDialog"
+
+[node name="PopupButton" type="Button" parent="Layout/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "PopupPanel"
+
+[node name="Status" type="Label" parent="Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.498039, 0.858824, 0.670588, 1)
+
+[node name="Hint" type="Label" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+modulate = Color(0.666667, 0.717647, 0.792157, 1)
+text = "可分别验证确认、取消、文件选择等信号。"
+
+[node name="AcceptDialog" type="AcceptDialog" parent="."]
+unique_name_in_owner = true
+title = "AcceptDialog"
+dialog_text = "这是一个需要确认的提示。"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+title = "ConfirmationDialog"
+dialog_text = "是否确认当前操作？"
+
+[node name="FileDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+title = "FileDialog"
+size = Vector2i(600, 420)
+access = 2
+file_mode = 0
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+unique_name_in_owner = true
+
+[node name="Content" type="VBoxContainer" parent="PopupPanel"]
+custom_minimum_size = Vector2(260, 120)
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="PopupPanel/Content"]
+layout_mode = 2
+text = "PopupPanel"
+
+[node name="Message" type="Label" parent="PopupPanel/Content"]
+layout_mode = 2
+text = "这是一个由场景声明的轻量浮层。"
+autowrap_mode = 2
+
+[node name="CloseButton" type="Button" parent="PopupPanel/Content"]
+layout_mode = 2
+text = "关闭"
+
+[connection signal="pressed" from="PopupPanel/Content/CloseButton" to="PopupPanel" method="hide"]
